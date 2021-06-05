@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Day 4</title>
+    <style type="text/css">
+    .circle {
+        border-radius: 250px;
+        margin: 0 auto;
+        position: relative;
+        top: 10px;
+        left: 10px;
+        width: 500px;
+        height: 500px;
+        border: 9px solid brown;
+    }
+
+    .dial12 {
+        position: absolute;
+        margin: auto auto;
+        top: 0;
+        left: 250px;
+        width: 10px;
+        height: 25px;
+        border-radius: 5px;
+        background-color: #000;
+    }
+
+    .dial3 {
+        position: absolute;
+        margin: auto auto;
+        top: 250px;
+        right: 0;
+        width: 25px;
+        height: 10px;
+        border-radius: 5px;
+        background-color: #000;
+    }
+
+    .dial6 {
+        position: absolute;
+        margin: auto auto;
+        left: 250px;
+        bottom: 0;
+        width: 10px;
+        height: 25px;
+        border-radius: 5px;
+        background-color: #000;
+    }
+
+    .dial9 {
+        position: absolute;
+        margin: auto auto;
+        top: 250px;
+        left: 0;
+        width: 25px;
+        height: 10px;
+        border-radius: 5px;
+        background-color: #000;
+    }
+
+    .second {
+        border-left: 2px solid green;
+        height: 200px;
+        position: absolute;
+        left: 50%;
+        margin-left: -3px;
+        top: 50px;
+        transform-origin: 0 100%;
+        animation: rotate 60s linear infinite;
+    }
+    .minute {
+        border-left: 2px solid red;
+        height: 200px;
+        position: absolute;
+        left: 50%;
+        margin-left: -3px;
+        top: 50px;
+        transform-origin: 0 100%;
+        animation: rotate 3600s linear infinite;
+    }
+    .hour {
+        border-left: 2px solid black;
+        height: 100px;
+        position: absolute;
+        left: 50%;
+        margin-left: -3px;
+        top: 150px;
+        transform-origin: 0 100%;
+        animation: rotate 43200s linear infinite;
+    }
+    .dot{
+    	border-radius: 7.5px;
+    	width: 15px;
+    	height: 15px;
+    	background-color: #000;
+    	position: absolute;
+    	top: 241px;
+    	left: 241px;
+    }
+    @keyframes rotate{
+    	0% { transform: rotate(0deg); }
+    	100% { transform: rotate(360deg); }
+    }
+    </style>
+</head>
+
+<body>
+    <div class="circle">
+        <div class="dial12">
+        </div>
+        <div class="dial3">
+        </div>
+        <div class="dial6">
+        </div>
+        <div class="dial9">
+        </div>
+        <div class="second">
+        </div>
+        <div class="minute">
+        </div>
+        <div class="hour">
+        </div>
+        <div class="dot">       	
+        </div>
+    </div>
+</body>
+
+</html>
