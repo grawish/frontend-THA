@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator</title>
+    <link href="">
+    <style>
+        @font-face {
+            font-family: "calcfont";
+            src: url("fonts/calcfont.ttf");
+        }
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .bg{
+            width: 100vh;
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+
+        body {
+            background-image: -webkit-gradient(
+                    linear,
+                    left bottom,
+                    left bottom,
+                    color-stop(0, #5D00DE),
+                    color-stop(1, #D105FF)
+            );
+            background: rgb(2, 0, 36);
+            background: linear-gradient(219deg, rgba(2, 0, 36, 1) 0%, rgba(239, 0, 255, 1) 0%, rgba(62, 0, 148, 1) 100%);
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            box-shadow: 0 0 20px black;
+            padding: 10px;
+            background-color: #453c3c;
+            width: 300px;
+            height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border-radius: 10px;
+        }
+
+        .display {
+            width: 100%;
+            margin: auto;
+            height: 95px;
+            display: flex;
+            border: 2px solid #453c3c;
+            border-radius: 10px;
+            justify-content: flex-end;
+            align-items: flex-end;
+            overflow: hidden;
+            padding: 10px;
+            font-family: calcfont, monospace;
+            font-size: xxx-large;
+            background-color: #289a11;
+        }
+
+        .keypad {
+            margin: auto;
+            width: 100%;
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .row {
+            display: flex;
+            margin: auto;
+            width: 100%;
+            height: 25%;
+        }
+
+        .button {
+            margin: auto;
+            width: 22%;
+            height: 90%;
+            display: flex;
+            border: 1px solid #555;
+            border-radius: 50%;
+            justify-content: center;
+            align-items: center;
+            font-size: xx-large;
+            color: white;
+            background-color: #453c3c;
+            cursor: pointer;
+        }
+        .button:active{
+            transform: scale(0.90);
+            box-shadow: 0 0 15px rgba(255,255,255,1);
+            transition: all 0.2s;
+        }
+    </style>
+</head>
+<body>
+<div class="bg">
+    <div class="container">
+        <div class="display" id="disp">
+71238
+        </div>
+        <div class="keypad">
+            <div class="row">
+                <div class="button number" id="7">
+                    7
+                </div>
+                <div class="button number" id="8">
+                    8
+                </div>
+                <div class="button number" id="9">
+                    9
+                </div>
+                <div class="button symbol" id="/">
+                    /
+                </div>
+            </div>
+            <div class="row">
+                <div class="button number" id="4">
+                    4
+                </div>
+                <div class="button number" id="5">
+                    5
+                </div>
+                <div class="button number" id="6">
+                    6
+                </div>
+                <div class="button symbol" id="*">
+                    *
+                </div>
+            </div>
+            <div class="row">
+                <div class="button number" id="1">
+                    1
+                </div>
+                <div class="button number" id="2">
+                    2
+                </div>
+                <div class="button number" id="3">
+                    3
+                </div>
+                <div class="button symbol" id="-">
+                    -
+                </div>
+            </div>
+            <div class="row">
+                <div class="button allclear" id="AC">
+                    .
+                </div>
+                <div class="button number" id="0">
+                    0
+                </div>
+                <div class="button symbol" id="=">
+                    00
+                </div>
+                <div class="button symbol" id="+">
+                    +
+                </div>
+            </div>
+            <div class="row">
+                <div class="button">
+                    &#8730;
+                </div>
+                <div class="button">
+                    a<sub style="font-size: medium; margin-bottom: 10px">x</sub>
+                </div>
+                <div class="button">
+                    AC
+                </div>
+                <div class="button">
+                    =
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    let myString = "";
+    let buttons = document.getElementsByClassName('number');
+    for (let button of buttons) {
+            button.addEventListener("click", function () {
+                myString+=this.id;
+                console.log(myString);
+                document.getElementById("disp").innerText=myString;
+            });
+    }
+    let symbols = document.getElementsByClassName('symbol');
+    for (let symbol of symbols) {
+        symbol.addEventListener('click', function () {
+            
+        })
+    }
+    document.getElementById("AC").addEventListener('click',function () {
+        myString="";
+        document.getElementById("disp").innerText=myString;
+    });
+
+
+</script>
+</body>
+</html>
