@@ -21,15 +21,22 @@
 
         .card {
             background: white;
-            padding: 40px 80px;
+            padding: 10vh 10vw;
             border-radius: 10px;
-            box-shadow: 0 0 20px #000;
-            font-size: x-large;
+            /*box-shadow: 0 0 20px #000;*/
+            font-size: 1.5em;
             font-family: 'Nunito', sans-serif;
             color: #D105FF;
+            transform: scale(1);
+            transition: ease .7s;
         }
         .card,a{
             text-decoration: none;
+        }
+        .card:hover{
+            transform: scale3d(1.1,1.1,1.1);
+            box-shadow: 0 0 20px #000;
+            transition: ease .7s;
         }
 
         .container {
