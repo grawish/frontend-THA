@@ -1,14 +1,97 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>Frontend THAs</title>
+    <meta charset="utf-8">
+    <title>Frontend THAs</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap');
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #cc2b5e; /* fallback for old browsers */
+            background: -webkit-linear-gradient(to top left, #753a88, #cc2b5e); /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to top left, #753a88, #cc2b5e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px #000;
+            font-size: x-large;
+            font-family: 'Nunito', sans-serif;
+            color: #D105FF;
+        }
+        .card,a{
+            text-decoration: none;
+        }
+
+        .container {
+            width: 100vw;
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+        }
+        .container-top{
+            height: 30vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container-top,h1{
+            font-family: 'Nunito', sans-serif;
+            font-size: xxx-large;
+            color: #ffffff;
+            text-shadow: 0 0 10px #000;
+        }
+        .row {
+            display: flex;
+            justify-content: space-evenly;
+
+        }
+    </style>
 </head>
 <body>
-<a href="htmls/1.html">Day 1</a><br>
-<a href="htmls/2.html">Day 2</a><br>
-<a href="htmls/3.html">Day 3</a><br>
-<a href="htmls/4.html">Day 4</a><br>
-<a href="htmls/5.html">Day 5</a><br>
+<div class="container-top">
+    <h1>Devsnest Frontend THAs</h1>
+</div>
+<div class="container">
+    <div class="row">
+        <a href="htmls/1.html">
+            <div class="card">
+                Day 1
+            </div>
+        </a>
+        <a href="htmls/2.html">
+            <div class="card">
+                Day 2
+            </div>
+        </a>
+        <a href="htmls/3.html">
+            <div class="card">
+                Day 3
+            </div>
+        </a>
+    </div>
+    <div class="row">
+        <a href="htmls/4.html">
+            <div class="card">
+                Day 4
+            </div>
+        </a>
+        <a href="htmls/5.html">
+            <div class="card">
+                Day 5
+            </div>
+        </a>
+    </div>
+</div>
 </body>
 </html>
