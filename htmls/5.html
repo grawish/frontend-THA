@@ -9,12 +9,14 @@
             font-family: "calcfont";
             src: url("fonts/calcfont.ttf");
         }
-        *{
+
+        * {
             padding: 0;
             margin: 0;
             box-sizing: border-box;
         }
-        .bg{
+
+        .bg {
             width: 100vh;
             display: flex;
             height: 100vh;
@@ -43,7 +45,7 @@
             padding: 10px;
             background-color: #453c3c;
             width: 300px;
-            height: 500px;
+            height: 400px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -70,7 +72,7 @@
         .keypad {
             margin: auto;
             width: 100%;
-            height: 350px;
+            height: 280px;
             display: flex;
             flex-direction: column;
         }
@@ -96,9 +98,10 @@
             background-color: #453c3c;
             cursor: pointer;
         }
-        .button:active{
+
+        .button:active {
             transform: scale(0.90);
-            box-shadow: 0 0 15px rgba(255,255,255,1);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 1);
             transition: all 0.2s;
         }
     </style>
@@ -107,7 +110,6 @@
 <div class="bg">
     <div class="container">
         <div class="display" id="disp">
-71238
         </div>
         <div class="keypad">
             <div class="row">
@@ -120,7 +122,7 @@
                 <div class="button number" id="9">
                     9
                 </div>
-                <div class="button symbol" id="/">
+                <div class="button number" id="/">
                     /
                 </div>
             </div>
@@ -134,7 +136,7 @@
                 <div class="button number" id="6">
                     6
                 </div>
-                <div class="button symbol" id="*">
+                <div class="button number" id="*">
                     *
                 </div>
             </div>
@@ -148,39 +150,24 @@
                 <div class="button number" id="3">
                     3
                 </div>
-                <div class="button symbol" id="-">
+                <div class="button number" id="-">
                     -
                 </div>
             </div>
             <div class="row">
                 <div class="button allclear" id="AC">
-                    .
+                    AC
                 </div>
                 <div class="button number" id="0">
                     0
                 </div>
-                <div class="button symbol" id="=">
-                    00
+                <div class="button equal" id="=">
+                    =
                 </div>
-                <div class="button symbol" id="+">
+                <div class="button number" id="+">
                     +
                 </div>
             </div>
-            <div class="row">
-                <div class="button">
-                    &#8730;
-                </div>
-                <div class="button">
-                    a<sub style="font-size: medium; margin-bottom: 10px">x</sub>
-                </div>
-                <div class="button">
-                    AC
-                </div>
-                <div class="button">
-                    =
-                </div>
-            </div>
-
         </div>
     </div>
 </div>
@@ -188,23 +175,24 @@
     let myString = "";
     let buttons = document.getElementsByClassName('number');
     for (let button of buttons) {
-            button.addEventListener("click", function () {
-                myString+=this.id;
-                console.log(myString);
-                document.getElementById("disp").innerText=myString;
-            });
+        button.addEventListener("click", function () {
+            if (myString === Infinity) {
+                // alert(myString);
+                myString = "";
+            }
+            myString +=this.id;
+            console.log(myString);
+            document.getElementById("disp").innerText = myString;
+        });
     }
-    let symbols = document.getElementsByClassName('symbol');
-    for (let symbol of symbols) {
-        symbol.addEventListener('click', function () {
-            
-        })
-    }
-    document.getElementById("AC").addEventListener('click',function () {
-        myString="";
-        document.getElementById("disp").innerText=myString;
+    document.getElementById("AC").addEventListener('click', function () {
+        myString = "";
+        document.getElementById("disp").innerText = myString;
     });
-
+    document.getElementById("=").addEventListener('click', function () {
+        myString =new Function('return ' + myString)();
+        document.getElementById("disp").innerText = myString;
+    });
 
 </script>
 </body>
