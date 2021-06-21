@@ -78,27 +78,32 @@
             transform: rotateY(180deg);
         }
 
-        .yt{
+        .yt {
             background: url(img/youtube.png) center center no-repeat;
             background-size: contain;
         }
-        .apple{
+
+        .apple {
             background: url(img/apple.png) center center no-repeat;
             background-size: contain;
         }
-        .facebook{
+
+        .facebook {
             background: url(img/facebook.png) center center no-repeat;
             background-size: contain;
         }
-        .github{
+
+        .github {
             background: url(img/github.png) center center no-repeat;
             background-size: contain;
         }
-        .instagram{
+
+        .instagram {
             background: url(img/instagram.png) center center no-repeat;
             background-size: contain;
         }
-        .appstore{
+
+        .appstore {
             background: url(img/app_store.png) center center no-repeat;
             background-size: contain;
         }
@@ -116,8 +121,7 @@
         el.className = classname;
         return el;
     }
-    let c=0;
-
+    let c = 0;
     for (let i = 0; i < 3; i++) {
 
         let row = document.createElement("div");
@@ -126,20 +130,59 @@
         for (let j = 0; j < 4; j++) {
             let card = document.createElement("div");
             card.classList.add("card");
-            card.id=""+(++c);
+            card.id = "" + (++c);
             row.appendChild(card);
             let icard = create("div", "flip-card-inner");
             icard.appendChild(create("div", "flip-card-front"));
             let backcard = create("div", "flip-card-back");
             icard.appendChild(backcard);
             card.appendChild(icard);
-            card.onclick = function (event) {
-                this.classList.toggle("flip");
-                console.log(event);
-            }
         }
     }
 
+    const push =(nl)=>{
+        let arr=Array();
+        for (let e of nl) {
+            arr.push(e);
+        }
+        return arr;
+    }
 
+    function remov(arr, value) {
+        let index = arr.indexOf(value);
+        if (index > -1) {
+            arr.splice(index, 1);
+        }
+        return arr;
+    }
+    let cards = push(document.querySelectorAll(".flip-card-back"));
+    let Img = Array("github", "yt", "apple", "appstore", "facebook", "instagram");
+    for (let i = 0; i < 6; i++) {
+        let randomcard1 = cards[Math.floor(Math.random() * cards.length)];
+        cards=remov(cards,randomcard1);
+        let randomcard2 = cards[Math.floor(Math.random() * cards.length)];
+        cards=remov(cards,randomcard2);
+        randomcard1.classList.add(Img[i]);
+        randomcard2.classList.add(Img[i]);
+    }
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    let pcard=null;
+    for (let card of document.getElementsByClassName("card")) {
+        card.addEventListener("click",async function () {
+            card.classList.add("flip");
+            if (pcard == null) {
+                pcard = card;
+                console.log(pcard);
+            } else if (this.firstChild.lastChild.classList[1] == pcard.firstChild.lastChild.classList[1]) {
+                console.log("found");
+            } else {
+                await sleep(1010);
+                this.classList.remove("flip");
+                pcard.classList.remove("flip");
+            }
+        })
+    }
 </script>
 </html>
