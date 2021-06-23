@@ -172,10 +172,14 @@
     }
 
     let pcard = null;
+    let card2 = null;
     for (let card of document.getElementsByClassName("card")) {
         card.addEventListener("click", async function () {
 
 
+            if (card2){
+                return;
+            }
             card.classList.add("flip");
             if (pcard == null) {
                 pcard = card;
@@ -186,10 +190,12 @@
                 console.log("found");
                 pcard = null;
             } else {
+                card2=this;
                 await sleep(1009);
                 this.classList.remove("flip");
                 pcard.classList.remove("flip");
                 pcard = null;
+                card2=null;
             }
 
 
