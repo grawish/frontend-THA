@@ -140,8 +140,8 @@
         }
     }
 
-    const push =(nl)=>{
-        let arr=Array();
+    const push = (nl) => {
+        let arr = Array();
         for (let e of nl) {
             arr.push(e);
         }
@@ -155,33 +155,44 @@
         }
         return arr;
     }
+
     let cards = push(document.querySelectorAll(".flip-card-back"));
     let Img = Array("github", "yt", "apple", "appstore", "facebook", "instagram");
     for (let i = 0; i < 6; i++) {
         let randomcard1 = cards[Math.floor(Math.random() * cards.length)];
-        cards=remov(cards,randomcard1);
+        cards = remov(cards, randomcard1);
         let randomcard2 = cards[Math.floor(Math.random() * cards.length)];
-        cards=remov(cards,randomcard2);
+        cards = remov(cards, randomcard2);
         randomcard1.classList.add(Img[i]);
         randomcard2.classList.add(Img[i]);
     }
+
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
-    let pcard=null;
+
+    let pcard = null;
     for (let card of document.getElementsByClassName("card")) {
-        card.addEventListener("click",async function () {
+        card.addEventListener("click", async function () {
+
+
             card.classList.add("flip");
             if (pcard == null) {
                 pcard = card;
-                console.log(pcard);
-            } else if (this.firstChild.lastChild.classList[1] == pcard.firstChild.lastChild.classList[1]) {
+                console.log("pcard " + pcard);
+            } else if (this.firstChild.lastChild.classList[0] == pcard.firstChild.lastChild.classList[1]) {
+                console.log(this.firstChild.lastChild.classList[0]);
+                console.log(pcard.firstChild.lastChild.classList[0]);
                 console.log("found");
+                pcard = null;
             } else {
-                await sleep(1010);
+                await sleep(1009);
                 this.classList.remove("flip");
                 pcard.classList.remove("flip");
+                pcard = null;
             }
+
+
         })
     }
 </script>
