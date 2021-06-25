@@ -1,10 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Quiz</title>
+    <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
 </head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400&display=swap');
+
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    .container {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        background: rgb(207, 31, 223);
+        background: linear-gradient(56deg, rgba(207, 31, 223, 1) 0%, rgba(65, 0, 255, 1) 100%);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .question {
+        width: 70vw;
+        height: 70vh;
+        background-color: #f3e6e8;
+        background-image: linear-gradient(315deg, #f3e6e8 0%, #d5d0e5 74%);
+        box-shadow: 0 0 30px #000;
+        border-radius: 30px;
+        border: 1px solid #000;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        padding: 10px;
+
+
+    }
+
+    .q {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Ubuntu', sans-serif;
+        width: 100%;
+        font-size: 3vw;
+        height: 20%;
+    }
+
+    .opt {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        height: 80%;
+        width: 80%;
+        align-items: stretch;
+    }
+
+    .opt label {
+        margin-left: 3vw;
+    }
+
+    .option {
+        width: 100%;
+        height: 15%;
+        border-radius: 10px;
+        font-family: 'Ubuntu', sans-serif;
+        display: flex;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.1);
+
+        padding: 20px;
+    }
+
+    .option:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .correct {
+        background-color: lightgreen;
+
+    }
+
+    .correct:hover {
+        background-color: lightgreen;
+    }
+
+    .animicorr {
+        animation: incorrect .3s ease;
+    }
+
+    .animcorr {
+        animation: correct .5s ease;
+    }
+
+    @keyframes correct {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.05);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    .incorrect {
+        background-color: lightcoral;
+    }
+
+    .incorrect:hover {
+        background-color: lightcoral;
+    }
+
+    @keyframes incorrect {
+        0% {
+            transform: translateX(20px);
+        }
+
+        25% {
+            transform: rotate(-1deg);
+        }
+        50% {
+            transform: rotate(2deg);
+
+        }
+        75% {
+            transform: rotate(-2deg);
+        }
+        100% {
+            transform: rotate(0deg);
+        }
+    }
+
+</style>
 <body>
-$END$
+<div class="container" id="container">
+    <div class="question" id="chart">
+
+    </div>
+</div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
+<script>
+    let n = 0;
+
+    function remov(arr, value) {
+        let index = arr.indexOf(value);
+        if (index > -1) {
+            arr.splice(index, 1);
+        }
+        return arr;
+    }
+
+    let correct = 0;
+
+
+    function setquestion(i, questions) {
+
+        opts = Array(0, 1, 2, 3);
+        let optstring = "";
+        for (let j = 0; j < 4; j++) {
+            let random = opts[Math.floor(Math.random() * opts.length)];
+            remov(opts, random);
+            optstring += "            <div class=\"option\" id='" + random + "'>\n" +
+                "                " + questions[i].answers[random] + "\n" +
+                "            </div>\n";
+        }
+
+
+        document.getElementById("container").innerHTML = "<div class=\"question\" id='ques'>\n" +
+            "        <div class=\"q\">\n" +
+            questions[i].question + "\n" +
+            "        </div>\n" +
+            "        <div class=\"opt\">\n" + optstring +
+            "        </div>\n" +
+            "    </div>";
+
+        let options = document.getElementsByClassName("option");
+        for (let option of options) {
+            option.addEventListener("click", function () {
+                if (this.innerText === questions[i].answers[questions[i].correctIndex]) {
+                    document.getElementById("ques").classList.add("animcorr");
+                    party.confetti(this);
+                    party.confetti(this);
+                    party.confetti(this);
+                    party.confetti(this);
+                    party.confetti(this);
+                    party.confetti(this);
+                    this.classList.add("correct");
+                    ++correct;
+                } else {
+                    document.getElementById("ques").classList.add("animicorr");
+                    this.classList.add("incorrect");
+                    console.log(document.getElementById(questions[i].correctIndex));
+                    document.getElementById(questions[i].correctIndex).classList.add("correct");
+                }
+                setTimeout(() => {
+                    if (n < questions.length - 1) {
+                        console.log(++n);
+                        setquestion(i + 1, questions);
+                    } else {
+                        document.getElementById("container").innerHTML="<div class='question' id='chart'></div>";
+                        const len = questions.length;
+                        const data = [
+                            {x: "Correct", value: correct},
+                            {x: "Incorrect", value: len - correct}
+                        ];
+                        var chart = anychart.pie();
+                        chart.title("Results for current Quiz");
+                        chart.data(data);
+                        chart.container('chart');
+                        chart.draw();
+
+                    }
+                }, 1000);
+
+            })
+        }
+    }
+
+    let b = 0;
+    fetch("json/Quiz.json").then((response) => {
+        return response.json();
+    }).then((j) => {
+        const questions = j.questions;
+        console.log(questions[0]);
+        setquestion(0, questions);
+    });
+
+</script>
 </html>
