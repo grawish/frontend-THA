@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Current time</title>
+</head>
+<body>
+<div id="root"></div>
+</body>
+<!--https://api.thingspeak.com/apps/thinghttp/send_request?api_key=FRGBOR5WUJ2BXIOP-->
+<script>
+    function httpGet(theUrl) {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", theUrl, false); // false for synchronous request
+        xmlHttp.send(null);
+        return xmlHttp.responseText;
+    }
+
+    document.getElementById('root').innerHTML = httpGet('https://api.thingspeak.com/apps/thinghttp/send_request?api_key=FRGBOR5WUJ2BXIOP').trim();
+
+</script>
+</html>
