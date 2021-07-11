@@ -1,0 +1,10 @@
+.cell{
+    width: 8vh;
+    height: 8vh;
+}
+.white{
+    background-color: white;
+}
+.black{
+    background-color: black;
+}

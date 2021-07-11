@@ -1,0 +1,14 @@
+.card{
+    width: 70vh;
+    height: 90vh;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 0 50px #000;
+    display: grid;
+    place-items: center;
+    margin-bottom: 50px;
+}
+.card>img{
+    width: 100%;
+    height: auto;
+}
