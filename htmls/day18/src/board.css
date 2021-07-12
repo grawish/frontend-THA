@@ -1,0 +1,20 @@
+.board{
+    width: 75vh;
+    height: 75vh;
+    background-image: url("https://www.myfreetextures.com/wp-content/uploads/2014/10/texture-seamless-wood-5.jpg");
+    margin: 12.5vh auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.frame{
+    width: 64vh;
+    height: 64vh;
+    border: 5px solid #9d9d9d;
+    display: grid;
+    grid-template-columns: repeat(8,1fr);
+    grid-template-rows: repeat(8,1fr);
+    place-items: center;
+    place-content: center;
+}
