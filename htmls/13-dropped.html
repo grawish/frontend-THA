@@ -1,403 +1,129 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>API Integration</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400&display=swap');
-
-        * {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-        }
-
-        .container {
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            background: rgb(207, 31, 223);
-            background: linear-gradient(56deg, rgba(207, 31, 223, 1) 0%, rgba(65, 0, 255, 1) 100%);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .question {
-            width: 70vw;
-            height: 70vh;
-            background-color: #f3e6e8;
-            background-image: linear-gradient(315deg, #f3e6e8 0%, #d5d0e5 74%);
-            box-shadow: 0 0 30px #000;
-            border-radius: 30px;
-            border: 1px solid #000;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-evenly;
-            align-items: center;
-            padding: 10px;
-
-
-        }
-
-        .q {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Ubuntu', sans-serif;
-            width: 100%;
-            font-size: 3vw;
-            height: 20%;
-        }
-
-        .opt {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-evenly;
-            height: 80%;
-            width: 80%;
-            align-items: stretch;
-        }
-
-        .opt label {
-            margin-left: 3vw;
-        }
-
-        .option {
-            width: 100%;
-            height: 15%;
-            border-radius: 10px;
-            font-family: 'Ubuntu', sans-serif;
-            display: flex;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.1);
-
-            padding: 20px;
-        }
-
-        .option:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .correct {
-            background-color: lightgreen;
-
-        }
-
-        .correct:hover {
-            background-color: lightgreen;
-        }
-
-        .animicorr {
-            animation: incorrect .3s ease;
-        }
-
-        .animcorr {
-            animation: correct .5s ease;
-        }
-
-        @keyframes correct {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        .incorrect {
-            background-color: lightcoral;
-        }
-
-        .incorrect:hover {
-            background-color: lightcoral;
-        }
-
-        @keyframes incorrect {
-            0% {
-                transform: translateX(20px);
-            }
-
-            25% {
-                transform: rotate(-1deg);
-            }
-            50% {
-                transform: rotate(2deg);
-
-            }
-            75% {
-                transform: rotate(-2deg);
-            }
-            100% {
-                transform: rotate(0deg);
-            }
-        }
-
-        .title {
-            font-family: 'Ubuntu', sans-serif;
-            font-weight: bold;
-            font-size: 2rem;
-            width: 77.5vw;
-            height: 5vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .row {
-            display: flex;
-            justify-content: space-evenly;
-            width: 65vw;
-        }
-
-        .category {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: aqua;
-            width: 20vw;
-            height: 25vh;
-            border-radius: 10px;
-        }
-
-        #easy {
-            background: rgb(0, 255, 94);
-            background: linear-gradient(196deg, rgba(0, 255, 94, 1) 0%, rgba(212, 255, 208, 1) 100%);
-        }
-
-        #medium {
-            background: rgb(241, 255, 0);
-            background: linear-gradient(196deg, rgba(241, 255, 0, 1) 0%, rgba(252, 255, 217, 1) 100%);
-        }
-
-        #hard {
-            background: rgb(255, 0, 0);
-            background: linear-gradient(196deg, rgba(255, 0, 0, 1) 0%, rgba(255, 217, 217, 1) 100%);
-        }
-
-        .slider {
-            width: 50vw;
-        }
-
-        .nextbtn {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: aqua;
-            border-radius: 10px;
-            width: 10vw;
-            height: 10vh;
-            box-shadow: 0 0 20px #000;
-        }
-    </style>
-    <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js" defer></script>
+    <title>Title</title>
 </head>
+<style>
+    canvas {
+        background: whitesmoke;
+    }
+    div {
+        width: 100px;
+        height: 100px;
+        margin-top: 100px;
+        border: 1px solid black;
+    }
+</style>
 <body>
-<div class="container" id="container">
-    <div class="question">
+<canvas id='canvas' width='700' height='700'></canvas>
 
-    </div>
-</div>
-</body>
+<button onclick='clear()'>Clear</button>
+
 <script>
-    const categorys = ["Linux", "Bash", "Docker", "SQL", "Code", "DevOps"];
-    const Difficulties = ["Easy", "Medium", "Hard"];
-    let api="0zL0BYUWzdMO2SXyiEojzXlcnI7cWtGNG7Rz8XXT"
-    let cat = "";
-    let diff = "";
-    let xi = 0;
-    let limit = 0;
-    selectcat();
+    // Bind canvas to listeners
+    var canvas = document.getElementById('canvas');
+    canvas.addEventListener('mousedown', mouseDown, false);
+    canvas.addEventListener('mousemove', mouseMove, false);
+    canvas.addEventListener('mouseup', mouseUp, false);
+    var ctx = canvas.getContext('2d');
 
-    function selectcat() {
-        let container = document.querySelector(".question");
-        let title = document.createElement("div");
-        title.classList.add("title");
-        title.innerHTML = "Select Category";
-        container.appendChild(title);
-        for (let i = 0; i < 2; i++) {
-            let row = document.createElement("div");
-            row.classList.add("row");
-            for (let j = 0; j < 3; j++) {
-                let category = document.createElement("div");
-                category.classList.add("category");
-                category.id = categorys[xi];
-                category.innerHTML = categorys[xi++];
-                category.addEventListener("click", function () {
-                    cat = this.id.toLowerCase();
-                    alert("category: " + cat);
-                    selectlevel();
-                })
-                row.appendChild(category);
-            }
-            container.appendChild(row);
-        }
-    }
+    ctx.lineWidth = 5;
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
 
-    function selectlevel() {
-        xi = 0;
-        let container = document.querySelector(".question");
-        container.innerHTML = "";
-        let title = document.createElement("div");
-        title.classList.add("title");
-        title.innerHTML = "Select Difficulty";
-        container.appendChild(title);
-        let row = document.createElement("div");
-        row.classList.add("row");
-        for (let j = 0; j < 3; j++) {
-            let difficulty = document.createElement("div");
-            difficulty.classList.add("category");
-            difficulty.id = Difficulties[xi];
-            difficulty.innerHTML = Difficulties[xi++].toUpperCase();
-            difficulty.addEventListener("click", function () {
-                diff = this.id;
-                alert("diff: " + diff);
-                selectnumber();
-            })
-            row.appendChild(difficulty);
-        }
-        container.appendChild(row);
-    }
+    var started = false;
+    var lastx = 0;
+    var lasty = 0;
 
+    // create an in-memory canvas
+    var memCanvas = document.createElement('canvas');
+    memCanvas.width = 700;
+    memCanvas.height = 700;
+    var memCtx = memCanvas.getContext('2d');
+    var points = [];
 
-    function selectnumber() {
-        xi = 0;
-        let container = document.querySelector(".question");
-        container.innerHTML = "";
-        let title = document.createElement("div");
-        title.classList.add("title");
-        title.innerHTML = "Select Number of Questions";
-        container.appendChild(title);
-        let row = document.createElement("div");
-        row.classList.add("row");
-        let numbers = document.createElement("div")
-        numbers.classList.add("title");
-        numbers.id = "num";
-        numbers.innerHTML="10";
-        row.appendChild(numbers);
-        container.appendChild(row);
-        row = document.createElement("div");
-        row.classList.add("row");
-        let num = document.createElement("input")
-        num.type = "range";
-        num.min = "1";
-        num.max = "20";
-        num.value = "10";
-        num.classList.add("slider");
-        num.addEventListener("input", function () {
-            document.getElementById("num").innerHTML = num.value;
-        })
-        row.appendChild(num);
-        container.appendChild(row);
-        row = document.createElement("div");
-        row.classList.add("row");
-        let btn = document.createElement("div");
-        btn.classList.add("nextbtn");
-        btn.innerHTML = "Next";
-        btn.addEventListener("click", function () {
-            limit = num.value;
-            alert("limit: " + limit);
-            let link="https://quizapi.io/api/v1/questions?apiKey="+api+"&category="+cat+"&difficulty="+diff+"&limit="+limit;
-            alert(link);
-            startquiz(link);
+    function mouseDown(e) {
+        var m = getMouse(e, canvas);
+        points.push({
+            x: m.x,
+            y: m.y
         });
-        row.appendChild(btn);
-        container.appendChild(row);
-    }
+        started = true;
+    };
 
-
-    let n = 0;
-
-    function remov(arr, value) {
-        let index = arr.indexOf(value);
-        if (index > -1) {
-            arr.splice(index, 1);
+    function mouseMove(e) {
+        if (started) {
+            ctx.clearRect(0, 0, 700, 700);
+            // put back the saved content
+            ctx.drawImage(memCanvas, 0, 0);
+            var m = getMouse(e, canvas);
+            points.push({
+                x: m.x,
+                y: m.y
+            });
+            drawPoints(ctx, points);
         }
-        return arr;
+    };
+
+    function mouseUp(e) {
+        if (started) {
+            started = false;
+            // When the pen is done, save the resulting context
+            // to the in-memory canvas
+            memCtx.clearRect(0, 0, 700, 700);
+            memCtx.drawImage(canvas, 0, 0);
+            points = [];
+        }
+    };
+
+    // clear both canvases!
+    function clear() {
+        context.clearRect(0, 0, 700, 700);
+        memCtx.clearRect(0, 0, 700, 700);
+    };
+
+
+
+
+    function drawPoints(ctx, points) {
+        // draw a basic circle instead
+        if (points.length < 6) {
+            var b = points[0];
+            ctx.beginPath(), ctx.arc(b.x, b.y, ctx.lineWidth / 2, 0, Math.PI * 2, !0), ctx.closePath(), ctx.fill();
+            return
+        }
+        ctx.beginPath(), ctx.moveTo(points[0].x, points[0].y);
+        // draw a bunch of quadratics, using the average of two points as the control point
+        for (i = 1; i < points.length - 2; i++) {
+            var c = (points[i].x + points[i + 1].x) / 2,
+                d = (points[i].y + points[i + 1].y) / 2;
+            ctx.quadraticCurveTo(points[i].x, points[i].y, c, d)
+        }
+        ctx.quadraticCurveTo(points[i].x, points[i].y, points[i + 1].x, points[i + 1].y), ctx.stroke()
     }
 
-    let correct = 0;
+    // Creates an object with x and y defined,
+    // set to the mouse position relative to the state's canvas
+    // If you wanna be super-correct this can be tricky,
+    // we have to worry about padding and borders
+    // takes an event and a reference to the canvas
+    function getMouse(e, canvas) {
+        var element = canvas, offsetX = 0, offsetY = 0, mx, my;
 
-
-    function setquestion(i, questions) {
-
-        opts = Array(0, 1, 2, 3);
-        let optstring = "";
-        for (let j = 0; j < 4; j++) {
-            let random = opts[Math.floor(Math.random() * opts.length)];
-            remov(opts, random);
-            optstring += "            <div class=\"option\" id='" + random + "'>\n" +
-                "                " + questions[i].answers[random] + "\n" +
-                "            </div>\n";
+        // Compute the total offset. It's possible to cache this if you want
+        if (element.offsetParent !== undefined) {
+            do {
+                offsetX += element.offsetLeft;
+                offsetY += element.offsetTop;
+            } while ((element = element.offsetParent));
         }
 
+        mx = e.pageX - offsetX;
+        my = e.pageY - offsetY;
 
-        document.getElementById("container").innerHTML = "<div class=\"question\" id='ques'>\n" +
-            "        <div class=\"q\">\n" +
-            questions[i].question + "\n" +
-            "        </div>\n" +
-            "        <div class=\"opt\">\n" + optstring +
-            "        </div>\n" +
-            "    </div>";
-
-        let options = document.getElementsByClassName("option");
-        for (let option of options) {
-            option.addEventListener("click", function () {
-                if (this.innerText === questions[i].answers[questions[i].correctIndex]) {
-                    document.getElementById("ques").classList.add("animcorr");
-                    party.confetti(this);
-                    party.confetti(this);
-                    party.confetti(this);
-                    party.confetti(this);
-                    party.confetti(this);
-                    party.confetti(this);
-                    this.classList.add("correct");
-                    ++correct;
-                } else {
-                    document.getElementById("ques").classList.add("animicorr");
-                    this.classList.add("incorrect");
-                    console.log(document.getElementById(questions[i].correctIndex));
-                    document.getElementById(questions[i].correctIndex).classList.add("correct");
-                }
-                setTimeout(() => {
-                    if (n < questions.length - 1) {
-                        console.log(++n);
-                        setquestion(i + 1, questions);
-                    } else {
-                        document.getElementById("container").innerHTML = "<div class='question' id='chart'></div>";
-                        const len = questions.length;
-                        const data = [
-                            {x: "Correct", value: correct},
-                            {x: "Incorrect", value: len - correct}
-                        ];
-                        var chart = anychart.pie();
-                        chart.title("Results for current Quiz");
-                        chart.data(data);
-                        chart.container('chart');
-                        chart.draw();
-
-                    }
-                }, 1000);
-
-            })
-        }
+        // We return a simple javascript object with x and y defined
+        return {x: mx, y: my};
     }
-
-
-    //fetch songs and call function
-    function startquiz(link) {
-        fetch(link).then((response) => {
-            return response.json();
-        }).then((j) => {
-            // console.log(j);
-            const questions = j;
-            console.log(questions[0]);
-            // setquestion(0, questions);
-        });
-
-    }
-
 </script>
+</body>
 </html>
