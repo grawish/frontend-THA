@@ -4,7 +4,7 @@ import './index.css';
 
 function Item(props) {
     return (
-        props.calArray.map((value,i)=>
+        props.calArray.map((value, i) => (
                 <div className='component' key={i}>
                     <h1>
                         {value[0]}
@@ -16,48 +16,54 @@ function Item(props) {
                         <button onClick={props.delfun} id={props.index}>Delete</button>
                     </div>
                 </div>
-
+            )
         )
     )
 }
 
 function Body() {
-    const [calArray, setCalArray] = useState([[1, 2]]);
+    const [calArray, setCalArray] = useState([['1', '2']]);
+    let tit;
+    let cal;
     let removeArr = (event) => {
         setCalArray(calArray.filter((item, i) => {
             return "" + i !== event.target.id;
         }));
     }
+    let settits=event=>{
+        tit=event.target.value
+    }
+    let setcals=event=>{
+        cal=event.target.value;
+    }
     let insertInArr = (event) => {
-        event.preventDefault();
-        console.log(event.target[0].value);
-        setCalArray(()=>{
-            let arr=calArray;
-            arr.push([event.target[0].value,event.target[1].value]);
-            return(arr);
+        setCalArray(() => {
+            let arr = calArray;
+            arr.push([tit, cal]);
+            return (arr);
         });
     }
-
+    useEffect(()=>{
+        setCalArray(calArray);
+    },[calArray])
     return (
         <div className='container'>
             <div className='form'>
-                <form id="initialform" target="#" onSubmit={insertInArr}>
-                    <input name="title_inp" type="text" />
-                    <input name="cal_inp" type="number" />
-                    <button type="submit">Submit</button>
-                </form>
+
+                    <input name="title_inp" type="text" onInput={settits}/>
+                    <input name="cal_inp" type="number" onInput={setcals}/>
+                    <button onClick={insertInArr}>Submit</button>
+
             </div>
             <Item calArray={calArray} delfun={removeArr}/>
         </div>
-    );
+    )
 }
 
 // calArray.map((cal_ar, i) => <Item title={cal_ar[0]} desc={cal_ar[1]} index={i} key={i} delfun={removeArr}/>)
 
 ReactDOM.render(
-    <React.StrictMode>
-        <Body/>
-    </React.StrictMode>,
+        <Body/>,
     document.getElementById('root')
 );
 
