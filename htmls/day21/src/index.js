@@ -3,9 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 function Item(props) {
-    let toggledisplay = event => {
+    let toggledisplay = (event, val) => {
         let i = event.target.id.split('-')[1]
+        console.log(val);
         document.getElementById('editform-' + i).classList.toggle('hidden');
+        document.getElementById('titleinp-'+i).value = val[0];
+        document.getElementById('calinp-'+i).value = val[1];
     }
     let edit = event =>{
     }
@@ -20,14 +23,14 @@ function Item(props) {
                             {'You consumed ' + value[1] + ' cals today.'}
                         </p>
                         <button onClick={props.delfun} id={i}>Delete</button>
-                        <button onClick={toggledisplay} id={"edit-" + i}>Edit</button>
+                        <button onClick={(event => toggledisplay(event,value))} id={"edit-" + i}>Edit</button>
                     </div>
                     <div id={'editform-' + i} className={'editform hidden'}>
-                        <input id={'titleinp-' + i}/>
-                        <input id={'calinp-' + i}/>
+                        <input id={'titleinp-' + i} />
+                        <input id={'calinp-' + i} />
                         <button onClick={(event) => {
-                            toggledisplay(event);
                             props.editfun(event);
+                            toggledisplay(event, value);
                         }} id={"done-" + i}>Done
                         </button>
                     </div>
@@ -51,8 +54,6 @@ function Body() {
         let arr = [...calArray];
         let i = event.target.id.split("-")[1];
         arr[i] = [document.getElementById('titleinp-' + i).value, document.getElementById('calinp-' + i).value];
-        document.getElementById('titleinp-' + i).value = "";
-        document.getElementById('calinp-' + i).value = "";
         setCalArray(arr);
     }
     let settits = event => {
