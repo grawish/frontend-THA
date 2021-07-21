@@ -3,6 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 function Item(props) {
+    let toggledisplay = event => {
+        let i = event.target.id.split('-')[1]
+        document.getElementById('editform-' + i).classList.toggle('hidden');
+    }
+    let edit = event =>{
+    }
     return (
         props.calArray.map((value, i) => (
                 <div className='component' key={i}>
@@ -13,8 +19,19 @@ function Item(props) {
                         <p>
                             {'You consumed ' + value[1] + ' cals today.'}
                         </p>
-                        <button onClick={props.delfun} id={props.index}>Delete</button>
+                        <button onClick={props.delfun} id={i}>Delete</button>
+                        <button onClick={toggledisplay} id={"edit-" + i}>Edit</button>
                     </div>
+                    <div id={'editform-' + i} className={'editform hidden'}>
+                        <input id={'titleinp-' + i}/>
+                        <input id={'calinp-' + i}/>
+                        <button onClick={(event) => {
+                            toggledisplay(event);
+                            props.editfun(event);
+                        }} id={"done-" + i}>Done
+                        </button>
+                    </div>
+
                 </div>
             )
         )
@@ -30,32 +47,39 @@ function Body() {
             return "" + i !== event.target.id;
         }));
     }
-    let settits=event=>{
-        tit=event.target.value
+    let updateArr = (event) => {
+        let arr = [...calArray];
+        let i = event.target.id.split("-")[1];
+        arr[i] = [document.getElementById('titleinp-' + i).value, document.getElementById('calinp-' + i).value];
+        document.getElementById('titleinp-' + i).value = "";
+        document.getElementById('calinp-' + i).value = "";
+        setCalArray(arr);
     }
-    let setcals=event=>{
-        cal=event.target.value;
+    let settits = event => {
+        tit = (event.target.value);
+        console.log("inout");
+    }
+    let setcals = event => {
+        cal = (event.target.value);
     }
     let insertInArr = (event) => {
-        setCalArray(() => {
-            let arr = calArray;
-            arr.push([tit, cal]);
-            return (arr);
-        });
+        if (document.getElementById('title_inp').value !== "" && document.getElementById('cal_inp').value !== "") {
+            setCalArray([...calArray, [tit, cal]]);
+            document.getElementById('title_inp').value = "";
+            document.getElementById('cal_inp').value = "";
+        } else {
+            alert("empty Strings")
+        }
+
     }
-    useEffect(()=>{
-        setCalArray(calArray);
-    },[calArray])
     return (
         <div className='container'>
             <div className='form'>
-
-                    <input name="title_inp" type="text" onInput={settits}/>
-                    <input name="cal_inp" type="number" onInput={setcals}/>
-                    <button onClick={insertInArr}>Submit</button>
-
+                <input id="title_inp" type="text" onChange={settits}/>
+                <input id="cal_inp" type="number" onChange={setcals}/>
+                <button onClick={insertInArr}>Submit</button>
             </div>
-            <Item calArray={calArray} delfun={removeArr}/>
+            <Item calArray={calArray} delfun={removeArr} editfun={updateArr}/>
         </div>
     )
 }
@@ -63,7 +87,9 @@ function Body() {
 // calArray.map((cal_ar, i) => <Item title={cal_ar[0]} desc={cal_ar[1]} index={i} key={i} delfun={removeArr}/>)
 
 ReactDOM.render(
-        <Body/>,
+    <React.StrictMode>
+        <Body/>
+    </React.StrictMode>,
     document.getElementById('root')
 );
 
