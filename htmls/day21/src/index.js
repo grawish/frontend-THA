@@ -31,7 +31,7 @@ function Item(props) {
                         <button onClick={(event) => {
                             props.editfun(event);
                             toggledisplay(event, value);
-                        }} id={"done-" + i}>Done
+                        }} id={"done-" + i}>
                         </button>
                     </div>
 
@@ -42,7 +42,7 @@ function Item(props) {
 }
 
 function Body() {
-    const [calArray, setCalArray] = useState([['1', '2']]);
+    const [calArray, setCalArray] = useState([['burger', '500'],["pizza","23"]]);
     let tit;
     let cal;
     let removeArr = (event) => {
