@@ -1,0 +1,20 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.App {
+  text-align: center;
+}
+nav ul{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  min-height: 10vh;
+  background: #5d00de;
+}
+nav ul li{
+  width: 25vw;
+  list-style: none;
+  color: white;
+}
