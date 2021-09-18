@@ -1,0 +1,71 @@
+div.posts {
+  .statuses {
+    overflow: auto;
+    white-space: nowrap;
+    padding: 2px;
+    margin: 20px 0;
+    box-shadow: 0 0 3px #0003;
+    border: 1px solid #0002;
+    border-radius: 3px;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    .status {
+      height: 65px;
+      width: 65px;
+      border-radius: 100%;
+      //background: red;
+      justify-content: center;
+      display: inline-flex;
+      align-items: center;
+      flex-direction: column;
+      margin: 5px 0;
+      .wrap {
+        height: 55px;
+        width: 55px;
+        border-radius: 100%;
+        background: aliceblue;
+        padding: 1.3px;
+        border: 2px solid #f02;
+        .image {
+          height: 100%;
+          width: 100%;
+          border-radius: 100%;
+        }
+      }
+    }
+  }
+  .post {
+    background-color: #fff;
+    box-shadow: 0 0 5px #0003;
+    margin: 20px 0;
+    border-radius: 3px;
+    overflow: hidden;
+    @media all and (max-width: 620px) {
+      border-radius: 0;
+    }
+    .user {
+      //height: 50px;
+      display: flex;
+      padding: 10px;
+      align-items: center;
+      .image {
+        height: 40px;
+        width: 40px;
+        margin-right: 10px;
+        border-radius: 100%;
+      }
+      .name {
+        font-size: 140%;
+      }
+    }
+    .media {
+      .image {
+        height: 600px;
+        @media all and (max-width: 620px) {
+          height: calc(100vw - 20px);
+        }
+      }
+    }
+  }
+}

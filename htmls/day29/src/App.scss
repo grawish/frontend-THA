@@ -1,0 +1,42 @@
+.App {
+  text-align: center;
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  //justify-content: center;
+  padding-top: calc(1vmax + 1vmin);
+  font-size: calc(1vmax + 1vmin);
+  color: white;
+  .form {
+    margin-bottom: 10px;
+    word-spacing: 1px;
+    input, button {
+      padding: calc(0.3vmax + 0.3vmin) calc(0.4vmax + 0.4vmin);
+      font-size: 80%;
+      border-radius: calc(0.2vmax + 0.2vmin);
+      border: none;
+    }
+    button {
+      //background: #3482ee;
+      background: #4f4e4e;
+      color: white;
+      cursor: pointer;
+      //font-weight: bold;
+    }
+  }
+}
+
+.App.light {
+  background-color: #ffffff;
+  color: white;
+  .form {
+    input {
+      background: #d7d7d7;
+    }
+    button {
+      background: #3482ee;
+    }
+  }
+}

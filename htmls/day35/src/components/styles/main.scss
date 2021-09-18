@@ -1,0 +1,31 @@
+div.main {
+  $min-break: 600px;
+  $max-break: 1000px;
+  display: flex;
+  justify-content: center;
+  .image {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .container {
+    display: flex;
+    border: var(--dev-border);
+    @media all and (max-width: $min-break + 20px) {
+      width: 100%;
+    }
+    .posts {
+      width: $min-break;
+      display: none;
+      @media all and (max-width: $min-break + 20px) {
+        width: 100%;
+      }
+    }
+    .options {
+      width: $max-break - $min-break;
+      @media all and (max-width: $max-break + 100px) {
+        //display: none;
+      }
+    }
+  }
+}
